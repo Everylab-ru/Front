@@ -5,6 +5,7 @@ import { SyntheticEvent } from 'react';
 
 import styles from './styles.module.scss';
 
+import logoImage from '@/assets/images/logo.png';
 import { RegisterType } from '@/pages/auth/register-page/schema.ts';
 import { LoginType } from '@/pages/auth/login-page/schema.ts';
 import backgroundImage from '@/assets/images/auth-background.webp';
@@ -56,6 +57,7 @@ export const AuthForm = ({
         <div className={styles.content}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.formContainer}>
+              <img className={styles.logo} src={logoImage} alt="logo" />
               <div className={styles.formContent}>
                 <Text size={'5'}>{formTitle}</Text>
                 <div className={styles.inputs}>
