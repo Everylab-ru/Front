@@ -8,6 +8,6 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
-EXPOSE 80
+EXPOSE 5173
 
 CMD [ "npm", "run", "dev" ]
