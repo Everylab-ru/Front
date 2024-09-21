@@ -1,3 +1,4 @@
--- сюда env файлы кидывать, но без значений
+send env's without values
 
+example: 
 PORT=
