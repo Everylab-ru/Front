@@ -1,6 +1,8 @@
 export const routes = {
-  main: '/',
+  root: '/',
+  main: '/main',
   login: '/login',
   register: '/register',
   add: '/add',
-};
+  notFound: '*',
+}

@@ -1,23 +1,24 @@
-import { Controller, SubmitHandler, useFormContext } from 'react-hook-form';
-import { Button, Link, Text, TextField } from '@radix-ui/themes';
-import { useNavigate } from 'react-router-dom';
-import { SyntheticEvent } from 'react';
+import { Controller, SubmitHandler, useFormContext } from 'react-hook-form'
+import { Button, Link, Text } from '@radix-ui/themes'
+import { useNavigate } from 'react-router-dom'
+import { SyntheticEvent } from 'react'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
-import logoImage from '@/assets/images/logo.png';
-import { RegisterType } from '@/pages/auth/register-page/schema.ts';
-import { LoginType } from '@/pages/auth/login-page/schema.ts';
-import backgroundImage from '@/assets/images/auth-background.webp';
+import logoImage from '@/assets/images/logo.png'
+import { RegisterType } from '@/pages/auth/register-page/schema.ts'
+import { LoginType } from '@/pages/auth/login-page/schema.ts'
+import backgroundImage from '@/assets/images/auth-background.webp'
+import { CustomInput } from '@/shared/ui/components/CustomInput'
 
 type AuthFormPropsType = {
-  formTitle: string;
-  formType: 'login' | 'registration';
-  submitCallback: (data: LoginType | RegisterType) => Promise<void>;
-  linkText: string;
-  linkPath: string;
-  buttonText: string;
-};
+  formTitle: string
+  formType: 'login' | 'registration'
+  submitCallback: (data: LoginType | RegisterType) => Promise<void>
+  linkText: string
+  linkPath: string
+  buttonText: string
+}
 
 export const AuthForm = ({
   submitCallback,
@@ -27,29 +28,29 @@ export const AuthForm = ({
   linkText,
   buttonText,
 }: AuthFormPropsType) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const {
     reset,
     handleSubmit,
     control,
-    // formState: { errors, isSubmitting },
-  } = useFormContext<LoginType & RegisterType>();
+    formState: { errors },
+  } = useFormContext<LoginType & RegisterType>()
 
   const onSubmit: SubmitHandler<LoginType | RegisterType> = async (data) => {
     try {
-      await submitCallback(data);
+      await submitCallback(data)
 
-      reset();
+      reset()
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const onLinkClick = (event: SyntheticEvent) => {
-    event.preventDefault();
-    navigate(linkPath);
-  };
+    event.preventDefault()
+    navigate(linkPath)
+  }
 
   return (
     <div className={styles.layout}>
@@ -57,7 +58,9 @@ export const AuthForm = ({
         <div className={styles.content}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.formContainer}>
-              <img className={styles.logo} src={logoImage} alt="logo" />
+              <div className={styles.logo}>
+                <img className={styles.logoImage} src={logoImage} alt="logo" />
+              </div>
               <div className={styles.formContent}>
                 <Text size={'5'}>{formTitle}</Text>
                 <div className={styles.inputs}>
@@ -66,7 +69,14 @@ export const AuthForm = ({
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
-                      <TextField.Root size={'3'} placeholder="Логин" className={styles.input} {...field} />
+                      <CustomInput
+                        size={'3'}
+                        error={errors.email?.message ?? ''}
+                        placeholder="Логин"
+                        type="email"
+                        className={styles.input}
+                        {...field}
+                      />
                     )}
                   />
                   <Controller
@@ -74,10 +84,11 @@ export const AuthForm = ({
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
-                      <TextField.Root
-                        type={'password'}
+                      <CustomInput
                         size={'3'}
+                        error={errors.password?.message ?? ''}
                         placeholder="Пароль"
+                        type="password"
                         className={styles.input}
                         {...field}
                       />
@@ -89,9 +100,10 @@ export const AuthForm = ({
                       control={control}
                       rules={{ required: true }}
                       render={({ field }) => (
-                        <TextField.Root
-                          type={'password'}
-                          size={'3'}
+                        <CustomInput
+                          type="password"
+                          error={errors.confirmPassword?.message ?? ''}
+                          size="3"
                           placeholder="Повторите пароль"
                           className={styles.input}
                           {...field}
@@ -104,14 +116,16 @@ export const AuthForm = ({
                   {buttonText}
                 </Button>
               </div>
-              <Link className={styles.link} underline={'always'} href={''} onClick={onLinkClick} size="3">
-                {linkText}
-              </Link>
+              <div className={styles.linkContainer}>
+                <Link underline={'always'} href={''} onClick={onLinkClick} size="3">
+                  {linkText}
+                </Link>
+              </div>
             </div>
           </form>
         </div>
       </div>
       <div className={styles.backgroundImageContainer} style={{ backgroundImage: `url(${backgroundImage})` }} />
     </div>
-  );
-};
+  )
+}
