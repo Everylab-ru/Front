@@ -10,6 +10,7 @@ import { RegisterType } from '@/pages/auth/register-page/schema.ts'
 import { LoginType } from '@/pages/auth/login-page/schema.ts'
 import backgroundImage from '@/assets/images/auth-background.webp'
 import { CustomInput } from '@/shared/ui/components/CustomInput'
+import { routes } from '@/app/routes.ts'
 
 type AuthFormPropsType = {
   formTitle: string
@@ -18,6 +19,7 @@ type AuthFormPropsType = {
   linkText: string
   linkPath: string
   buttonText: string
+  isLoading: boolean
 }
 
 export const AuthForm = ({
@@ -27,6 +29,7 @@ export const AuthForm = ({
   linkPath,
   linkText,
   buttonText,
+  isLoading,
 }: AuthFormPropsType) => {
   const navigate = useNavigate()
 
@@ -51,6 +54,9 @@ export const AuthForm = ({
     event.preventDefault()
     navigate(linkPath)
   }
+  const onLogoClick = () => {
+    navigate(routes.main)
+  }
 
   return (
     <div className={styles.layout}>
@@ -58,7 +64,7 @@ export const AuthForm = ({
         <div className={styles.content}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.formContainer}>
-              <div className={styles.logo}>
+              <div className={styles.logo} onClick={onLogoClick}>
                 <img className={styles.logoImage} src={logoImage} alt="logo" />
               </div>
               <div className={styles.formContent}>
@@ -72,7 +78,7 @@ export const AuthForm = ({
                       <CustomInput
                         size={'3'}
                         error={errors.email?.message ?? ''}
-                        placeholder="Логин"
+                        placeholder="Почта"
                         type="email"
                         className={styles.input}
                         {...field}
@@ -112,12 +118,22 @@ export const AuthForm = ({
                     />
                   )}
                 </div>
-                <Button variant={'classic'} size={'3'} className={styles.button}>
+                <Button
+                  loading={isLoading}
+                  variant={'classic'}
+                  size={'3'}
+                  className={styles.button}
+                >
                   {buttonText}
                 </Button>
               </div>
               <div className={styles.linkContainer}>
-                <Link underline={'always'} href={''} onClick={onLinkClick} size="3">
+                <Link
+                  underline={'always'}
+                  href={''}
+                  onClick={onLinkClick}
+                  size="3"
+                >
                   {linkText}
                 </Link>
               </div>
@@ -125,7 +141,10 @@ export const AuthForm = ({
           </form>
         </div>
       </div>
-      <div className={styles.backgroundImageContainer} style={{ backgroundImage: `url(${backgroundImage})` }} />
+      <div
+        className={styles.backgroundImageContainer}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      />
     </div>
   )
 }

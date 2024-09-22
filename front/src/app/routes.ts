@@ -6,3 +6,5 @@ export const routes = {
   add: '/add',
   notFound: '*',
 }
+
+export const routesWithoutHeader = [routes.login, routes.register]

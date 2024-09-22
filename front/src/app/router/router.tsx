@@ -1,10 +1,14 @@
-import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+} from 'react-router-dom'
 
 import { LoginPage } from '@/pages/auth/login-page'
 import { RegisterPage } from '@/pages/auth/register-page'
 import { routes } from '@/app/routes.ts'
 import { Layout } from '@/app/layout'
-import { PrivateRoutes } from '@/app/router/private-routes'
 import { MainPage } from '@/pages/main-page'
 import { NotFoundPage } from '@/pages/not-found-page'
 
@@ -17,9 +21,7 @@ export const router = createBrowserRouter(
       <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.register} element={<RegisterPage />} />
 
-      <Route element={<PrivateRoutes />}>
-        <Route path={routes.main} element={<MainPage />} />
-      </Route>
+      <Route path={routes.main} element={<MainPage />} />
     </Route>,
   ),
 )

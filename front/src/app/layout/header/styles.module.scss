@@ -1,0 +1,23 @@
+.headerContainer {
+  width: 100vw;
+  height: 80px;
+  box-shadow: 0 0 4px gray;
+  position: sticky;
+  background-color: white;
+  top: 0;
+
+  .headerContent {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+    .logo {
+      cursor: pointer;
+      width: auto;
+      height: 100%;
+    }
+  }
+}
