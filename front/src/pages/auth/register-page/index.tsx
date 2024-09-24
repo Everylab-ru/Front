@@ -20,6 +20,7 @@ export const RegisterPage = () => {
       password: '',
       confirmPassword: '',
     },
+    mode: 'onSubmit',
   })
 
   const [isLoading, setIsLoading] = useState(false)

@@ -1,7 +1,7 @@
 import { Controller, SubmitHandler, useFormContext } from 'react-hook-form'
 import { Button, Link, Text } from '@radix-ui/themes'
 import { useNavigate } from 'react-router-dom'
-import { SyntheticEvent } from 'react'
+import { SyntheticEvent, useState } from 'react'
 
 import styles from './styles.module.scss'
 
@@ -11,6 +11,8 @@ import { LoginType } from '@/pages/auth/login-page/schema.ts'
 import backgroundImage from '@/assets/images/auth-background.webp'
 import { CustomInput } from '@/shared/ui/components/CustomInput'
 import { routes } from '@/app/routes.ts'
+import OpenedEyeIcon from '@/assets/icons/opened-eye.svg'
+import ClosedEyeIcon from '@/assets/icons/closed-eye.svg'
 
 type AuthFormPropsType = {
   formTitle: string
@@ -40,6 +42,9 @@ export const AuthForm = ({
     formState: { errors },
   } = useFormContext<LoginType & RegisterType>()
 
+  const [isShowPass, setIsShowPass] = useState(false)
+  const [isShowConfirmPass, setIsShowConfirmPass] = useState(false)
+
   const onSubmit: SubmitHandler<LoginType | RegisterType> = async (data) => {
     try {
       await submitCallback(data)
@@ -47,6 +52,18 @@ export const AuthForm = ({
       reset()
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  const changeShowPass = (
+    event: SyntheticEvent,
+    passType: 'pass' | 'confirmPass',
+  ) => {
+    event.preventDefault()
+    if (passType === 'pass') {
+      setIsShowPass((prevState) => !prevState)
+    } else {
+      setIsShowConfirmPass((prevState) => !prevState)
     }
   }
 
@@ -92,9 +109,13 @@ export const AuthForm = ({
                     render={({ field }) => (
                       <CustomInput
                         size={'3'}
+                        onEndIconClick={(e) => changeShowPass(e, 'pass')}
+                        endIcon={
+                          isShowPass ? <OpenedEyeIcon /> : <ClosedEyeIcon />
+                        }
                         error={errors.password?.message ?? ''}
                         placeholder="Пароль"
-                        type="password"
+                        type={isShowPass ? 'text' : 'password'}
                         className={styles.input}
                         {...field}
                       />
@@ -107,7 +128,17 @@ export const AuthForm = ({
                       rules={{ required: true }}
                       render={({ field }) => (
                         <CustomInput
-                          type="password"
+                          onEndIconClick={(e) =>
+                            changeShowPass(e, 'confirmPass')
+                          }
+                          endIcon={
+                            isShowConfirmPass ? (
+                              <OpenedEyeIcon />
+                            ) : (
+                              <ClosedEyeIcon />
+                            )
+                          }
+                          type={isShowConfirmPass ? 'text' : 'password'}
                           error={errors.confirmPassword?.message ?? ''}
                           size="3"
                           placeholder="Повторите пароль"
