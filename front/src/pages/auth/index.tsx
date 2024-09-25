@@ -17,7 +17,7 @@ import ClosedEyeIcon from '@/assets/icons/closed-eye.svg'
 type AuthFormPropsType = {
   formTitle: string
   formType: 'login' | 'registration'
-  submitCallback: (data: LoginType | RegisterType) => Promise<void>
+  submitCallback: (data: RegisterType | LoginType) => Promise<void>
   linkText: string
   linkPath: string
   buttonText: string
@@ -102,6 +102,23 @@ export const AuthForm = ({
                       />
                     )}
                   />
+                  {formType === 'registration' && (
+                    <Controller
+                      name={'username'}
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <CustomInput
+                          size={'3'}
+                          error={errors.username?.message ?? ''}
+                          placeholder="Имя пользователя"
+                          type="text"
+                          className={styles.input}
+                          {...field}
+                        />
+                      )}
+                    />
+                  )}
                   <Controller
                     name={'password'}
                     control={control}

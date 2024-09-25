@@ -6,6 +6,7 @@ export const registerSchema = yup
       .string()
       .required('Почта обязательна')
       .email('Некорректная почта'),
+    username: yup.string().required('Имя пользователя обязательно'),
     password: yup
       .string()
       .required('Пароль обязателен')

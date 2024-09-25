@@ -1,10 +1,13 @@
 body {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
 }
 
 .radix-themes {
-  --cursor-button: pointer;
+    --cursor-button: pointer;
+
+    --default-font-family: "Nunito", sans-serif;
+    --default-font-weight: 600;
 }

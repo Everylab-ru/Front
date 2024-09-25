@@ -8,9 +8,9 @@ import {
   registerSchema,
   RegisterType,
 } from '@/pages/auth/register-page/schema.ts'
-import { LoginType } from '@/pages/auth/login-page/schema.ts'
 import { useAppDispatch } from '@/app/hooks.ts'
 import { userThunks } from '@/entities/store/slices/user-slice'
+import { LoginType } from '@/pages/auth/login-page/schema.ts'
 
 export const RegisterPage = () => {
   const methods = useForm<RegisterType>({
@@ -19,6 +19,7 @@ export const RegisterPage = () => {
       email: '',
       password: '',
       confirmPassword: '',
+      username: '',
     },
     mode: 'onSubmit',
   })
@@ -30,10 +31,15 @@ export const RegisterPage = () => {
   const submitCallback = async (data: RegisterType | LoginType) => {
     try {
       setIsLoading(true)
-
-      dispatch(
-        userThunks.registerUser({ email: data.email, password: data.password }),
-      ).unwrap()
+      if ('username' in data) {
+        dispatch(
+          userThunks.registerUser({
+            email: data.email,
+            password: data.password,
+            username: data.username,
+          }),
+        ).unwrap()
+      }
     } catch (e) {
       console.error(e)
     } finally {

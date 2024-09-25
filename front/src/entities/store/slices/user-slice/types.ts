@@ -4,7 +4,8 @@ export type UserSliceType = {
 }
 
 export type UserType = {
-  login?: string
+  email?: string
+  username?: string
 }
 
 export type LoginUserRequestType = {
@@ -18,6 +19,7 @@ export type LoginUserResponseType = {
 
 export type RegisterUserRequestType = {
   email: string
+  username: string
   password: string
 }
 
