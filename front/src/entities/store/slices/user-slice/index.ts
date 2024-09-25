@@ -55,9 +55,7 @@ const registerUser = createAppAsyncThunk<
   RegisterUserRequestType
 >('user/login', async (args, { rejectWithValue }) => {
   try {
-    setTimeout(() => {
-      Auth.register(args)
-    }, 3000)
+    await Auth.register(args)
 
     return { email: args.email }
   } catch (e) {

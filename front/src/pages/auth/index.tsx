@@ -21,7 +21,6 @@ type AuthFormPropsType = {
   linkText: string
   linkPath: string
   buttonText: string
-  isLoading: boolean
 }
 
 export const AuthForm = ({
@@ -31,15 +30,13 @@ export const AuthForm = ({
   linkPath,
   linkText,
   buttonText,
-  isLoading,
 }: AuthFormPropsType) => {
   const navigate = useNavigate()
 
   const {
-    reset,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useFormContext<LoginType & RegisterType>()
 
   const [isShowPass, setIsShowPass] = useState(false)
@@ -48,8 +45,6 @@ export const AuthForm = ({
   const onSubmit: SubmitHandler<LoginType | RegisterType> = async (data) => {
     try {
       await submitCallback(data)
-
-      reset()
     } catch (e) {
       console.log(e)
     }
@@ -167,7 +162,7 @@ export const AuthForm = ({
                   )}
                 </div>
                 <Button
-                  loading={isLoading}
+                  loading={isSubmitting}
                   variant={'classic'}
                   size={'3'}
                   className={styles.button}

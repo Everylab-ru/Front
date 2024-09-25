@@ -1,6 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
 
 import { routes } from '@/app/routes.ts'
 import { AuthForm } from '@/pages/auth'
@@ -24,26 +23,23 @@ export const RegisterPage = () => {
     mode: 'onSubmit',
   })
 
-  const [isLoading, setIsLoading] = useState(false)
-
   const dispatch = useAppDispatch()
 
   const submitCallback = async (data: RegisterType | LoginType) => {
     try {
-      setIsLoading(true)
       if ('username' in data) {
-        dispatch(
+        await dispatch(
           userThunks.registerUser({
             email: data.email,
             password: data.password,
             username: data.username,
           }),
         ).unwrap()
+
+        methods.reset()
       }
     } catch (e) {
       console.error(e)
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -56,7 +52,6 @@ export const RegisterPage = () => {
         linkPath={routes.login}
         linkText={'Уже есть аккаунт? Войти'}
         buttonText={'Зарегистрироваться'}
-        isLoading={isLoading}
       />
     </FormProvider>
   )
