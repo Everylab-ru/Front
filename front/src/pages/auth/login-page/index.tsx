@@ -29,7 +29,6 @@ export const LoginPage = () => {
         linkPath={routes.register}
         linkText={'Нет аккаунта? Зарегистрироваться'}
         buttonText={'Войти'}
-        isLoading={false}
       />
     </FormProvider>
   )
