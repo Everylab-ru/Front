@@ -11,6 +11,7 @@ import { routes } from '@/app/routes.ts'
 import { Layout } from '@/app/layout'
 import { MainPage } from '@/pages/main-page'
 import { NotFoundPage } from '@/pages/not-found-page'
+import { ProfilePage } from '@/pages/profile-page'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ export const router = createBrowserRouter(
       <Route path={routes.register} element={<RegisterPage />} />
 
       <Route path={routes.main} element={<MainPage />} />
+      <Route path={routes.profile} element={<ProfilePage />} />
     </Route>,
   ),
 )

@@ -9,11 +9,7 @@ export type UserType = {
 }
 
 export type LoginUserRequestType = {
-  login: string
-  password: string
-}
-export type LoginUserResponseType = {
-  login: string
+  email: string
   password: string
 }
 
@@ -23,6 +19,11 @@ export type RegisterUserRequestType = {
   password: string
 }
 
-export type RegisterUserResponseType = {
+export type AuthUserResponseType = {
   access_token: string
+}
+
+export type MeResponseType = {
+  email: string
+  username: string
 }

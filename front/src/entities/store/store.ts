@@ -8,7 +8,8 @@ export const store = configureStore({
     [everyLabApi.reducerPath]: everyLabApi.reducer,
     user: userReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(everyLabApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(everyLabApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

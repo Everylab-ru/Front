@@ -16,6 +16,7 @@ export const Layout = () => {
 
   const contentStyles = clsx(styles.contentContainer, {
     [styles.maxWidth]: !isHideHeader,
+    [styles.withAuthPages]: isHideHeader,
   })
 
   return (

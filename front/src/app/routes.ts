@@ -4,6 +4,7 @@ export const routes = {
   login: '/login',
   register: '/register',
   add: '/add',
+  profile: '/profile',
   notFound: '*',
 }
 

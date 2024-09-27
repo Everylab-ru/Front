@@ -1,0 +1,11 @@
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  flex: 1;
+
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import {
   LoginUserRequestType,
-  LoginUserResponseType,
+  MeResponseType,
   RegisterUserRequestType,
   UserSliceType,
 } from '@/entities/store/slices/user-slice/types.ts'
@@ -23,12 +23,20 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      /*      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoggedIn = true
-        state.user.username = action.payload.login
-      })*/
-      .addCase(registerUser.fulfilled, (state, action) => {
+      .addCase(meUser.fulfilled, (state, action) => {
+        state.user.username = action.payload.username
         state.user.email = action.payload.email
+      })
+      .addCase(loginUser.fulfilled, (state) => {
+        state.isLoggedIn = true
+      })
+      .addCase(registerUser.fulfilled, (state) => {
+        state.isLoggedIn = true
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user.username = ''
+        state.user.email = ''
+        state.isLoggedIn = false
       })
   },
   selectors: {
@@ -37,34 +45,74 @@ export const userSlice = createSlice({
   },
 })
 
-const loginUser = createAppAsyncThunk<
-  LoginUserResponseType,
-  LoginUserRequestType
->('user/login', async ({ login, password }, { rejectWithValue }) => {
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+const loginUser = createAppAsyncThunk<void, LoginUserRequestType>(
+  'user/login',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      await Auth.login({ email, password })
+    } catch (e) {
+      console.error(e)
+      return rejectWithValue(null)
+    }
+  },
+)
 
-    return { login, password }
-  } catch (e) {
-    return rejectWithValue(null)
-  }
-})
+const registerUser = createAppAsyncThunk<void, RegisterUserRequestType>(
+  'user/register',
+  async (args, { rejectWithValue }) => {
+    try {
+      await Auth.register(args)
+    } catch (e) {
+      console.error(e)
+      return rejectWithValue(null)
+    }
+  },
+)
 
-const registerUser = createAppAsyncThunk<
-  { email: string },
-  RegisterUserRequestType
->('user/login', async (args, { rejectWithValue }) => {
-  try {
-    await Auth.register(args)
+const meUser = createAppAsyncThunk<MeResponseType, void>(
+  'user/me',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await Auth.me()
+    } catch (e) {
+      console.error(e)
+      return rejectWithValue(null)
+    }
+  },
+)
 
-    return { email: args.email }
-  } catch (e) {
-    return rejectWithValue(null)
-  }
-})
+const refreshUser = createAppAsyncThunk<void, void>(
+  'user/refresh',
+  async (_, { rejectWithValue }) => {
+    try {
+      await Auth.refresh()
+    } catch (e) {
+      console.error(e)
+      return rejectWithValue(null)
+    }
+  },
+)
+
+const logoutUser = createAppAsyncThunk<void, void>(
+  'user/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      await Auth.logout()
+    } catch (e) {
+      console.error(e)
+      return rejectWithValue(null)
+    }
+  },
+)
 
 export const userActions = userSlice.actions
 export const { selectorIsLoggedIn, selectorUser } = userSlice.selectors
-export const userThunks = { loginUser, registerUser }
+export const userThunks = {
+  loginUser,
+  registerUser,
+  meUser,
+  refreshUser,
+  logoutUser,
+}
 
 export const userReducer = userSlice.reducer

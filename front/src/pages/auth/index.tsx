@@ -11,8 +11,8 @@ import { LoginType } from '@/pages/auth/login-page/schema.ts'
 import backgroundImage from '@/assets/images/auth-background.webp'
 import { CustomInput } from '@/shared/ui/components/CustomInput'
 import { routes } from '@/app/routes.ts'
-import OpenedEyeIcon from '@/assets/icons/opened-eye.svg'
-import ClosedEyeIcon from '@/assets/icons/closed-eye.svg'
+import OpenedEyeIcon from '@/assets/icons/opened-eye.svg?react'
+import ClosedEyeIcon from '@/assets/icons/closed-eye.svg?react'
 
 type AuthFormPropsType = {
   formTitle: string
@@ -163,7 +163,7 @@ export const AuthForm = ({
                 </div>
                 <Button
                   loading={isSubmitting}
-                  variant={'classic'}
+                  variant={'solid'}
                   size={'3'}
                   className={styles.button}
                 >

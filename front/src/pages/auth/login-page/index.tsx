@@ -5,8 +5,12 @@ import { loginSchema, LoginType } from './schema.ts'
 
 import { AuthForm } from '@/pages/auth'
 import { routes } from '@/app/routes.ts'
+import { useAppDispatch } from '@/app/hooks.ts'
+import { userThunks } from '@/entities/store/slices/user-slice'
 
 export const LoginPage = () => {
+  const dispatch = useAppDispatch()
+
   const methods = useForm<LoginType>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
@@ -17,7 +21,17 @@ export const LoginPage = () => {
   })
 
   const submitCallback = async (data: LoginType) => {
-    console.log(data)
+    try {
+      await dispatch(userThunks.loginUser(data))
+        .unwrap()
+        .then(() => {
+          dispatch(userThunks.meUser()).unwrap()
+        })
+
+      methods.reset()
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (

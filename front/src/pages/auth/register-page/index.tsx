@@ -34,7 +34,11 @@ export const RegisterPage = () => {
             password: data.password,
             username: data.username,
           }),
-        ).unwrap()
+        )
+          .unwrap()
+          .then(() => {
+            dispatch(userThunks.meUser()).unwrap()
+          })
 
         methods.reset()
       }
