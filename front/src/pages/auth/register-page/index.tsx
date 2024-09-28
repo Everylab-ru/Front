@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigate } from 'react-router-dom'
 
 import { routes } from '@/app/routes.ts'
 import { AuthForm } from '@/pages/auth'
@@ -12,6 +13,8 @@ import { userThunks } from '@/entities/store/slices/user-slice'
 import { LoginType } from '@/pages/auth/login-page/schema.ts'
 
 export const RegisterPage = () => {
+  const navigate = useNavigate()
+
   const methods = useForm<RegisterType>({
     resolver: yupResolver(registerSchema),
     defaultValues: {
@@ -39,6 +42,8 @@ export const RegisterPage = () => {
           .then(() => {
             dispatch(userThunks.meUser()).unwrap()
           })
+
+        navigate(routes.main)
 
         methods.reset()
       }

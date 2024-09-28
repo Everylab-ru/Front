@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigate } from 'react-router-dom'
 
 import { loginSchema, LoginType } from './schema.ts'
 
@@ -9,6 +10,8 @@ import { useAppDispatch } from '@/app/hooks.ts'
 import { userThunks } from '@/entities/store/slices/user-slice'
 
 export const LoginPage = () => {
+  const navigate = useNavigate()
+
   const dispatch = useAppDispatch()
 
   const methods = useForm<LoginType>({
@@ -27,6 +30,7 @@ export const LoginPage = () => {
         .then(() => {
           dispatch(userThunks.meUser()).unwrap()
         })
+      navigate(routes.main)
 
       methods.reset()
     } catch (e) {

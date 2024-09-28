@@ -1,4 +1,4 @@
-import { Select } from '@radix-ui/themes'
+import { Select, Text } from '@radix-ui/themes'
 
 import styles from './styles.module.scss'
 
@@ -13,53 +13,39 @@ type CustomSelectPropsType = {
   value: string
   placeholder: string
   isDisabled?: boolean
+  error?: string
 }
 
 export const CustomSelect = ({
   options,
   changeOption,
   value,
+  error,
   placeholder,
   isDisabled = false,
 }: CustomSelectPropsType) => {
-  /*
-  const [searchValue, setSearchValue] = useState('')
-
-  const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.currentTarget.value)
-  }
-
-  const filteredOptions = useMemo(() => {
-    if (!searchValue) {
-      return options
-    }
-
-    return options.filter((option) =>
-      option.label.toLowerCase().includes(searchValue.toLowerCase()),
-    )
-  }, [searchValue])
-*/
-
   return (
-    <Select.Root
-      disabled={isDisabled}
-      onValueChange={changeOption}
-      size="3"
-      defaultValue={value ?? ''}
-    >
-      <Select.Trigger placeholder={placeholder} />
-      <Select.Content className={styles.content}>
-        {/*        <CustomInput
-          className={styles.input}
-          value={searchValue}
-          onChange={onChangeValue}
-        />*/}
-        {options.map((option, index) => (
-          <Select.Item key={index} value={option.value}>
-            {option.label}
-          </Select.Item>
-        ))}
-      </Select.Content>
-    </Select.Root>
+    <div className={styles.customSelect}>
+      <Select.Root
+        disabled={isDisabled}
+        onValueChange={changeOption}
+        size="3"
+        defaultValue={value ?? ''}
+      >
+        <Select.Trigger placeholder={placeholder} />
+        <Select.Content variant={'soft'} className={styles.content}>
+          {options.map((option, index) => (
+            <Select.Item key={index} value={option.value}>
+              {option.label}
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Root>
+      {error && (
+        <Text color={'red'} size={'2'} className={styles.error}>
+          {error}
+        </Text>
+      )}
+    </div>
   )
 }

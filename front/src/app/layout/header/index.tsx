@@ -27,6 +27,7 @@ export const Header = () => {
   }
 
   const onLogoClick = () => navigate(routes.main)
+  const onAddNewWorkClick = () => navigate(routes.addNewProduct)
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value)
@@ -66,6 +67,9 @@ export const Header = () => {
           value={searchValue}
           onChange={onChangeHandler}
         />
+        <Button onClick={onAddNewWorkClick} variant={'soft'}>
+          + Добавить работу
+        </Button>
         <IconButton>
           <CartSVG />
         </IconButton>

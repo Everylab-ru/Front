@@ -1,0 +1,76 @@
+.form {
+  display: flex;
+  gap: 40px;
+
+  .titleDescriptionPrice {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .block {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      .priceInputContainer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        .priceInput {
+          flex: 1
+        }
+      }
+    }
+  }
+
+  .otherCharacteristics {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 50px;
+
+    .selects {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .fileContainer {
+      position: relative;
+
+      .file {
+        height: 150px;
+        position: relative;
+        cursor: pointer;
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+        border: 1px dashed black;
+        display: flex;
+        justify-content: flex-end;
+
+        .info {
+          width: fit-content;
+        }
+
+        .title {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .caption {
+        position: absolute;
+      }
+    }
+
+
+    .button {
+      align-self: flex-end;
+    }
+  }
+}

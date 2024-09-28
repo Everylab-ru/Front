@@ -10,6 +10,9 @@ import { StrictMode } from 'react'
 import { store } from '@/entities/store/store.ts'
 import { router } from '@/app/router/router.tsx'
 import { AppWrapper } from '@/app/AppWrapper.tsx'
+import { Api } from '@/entities/api/api.ts'
+
+Api.setupInterceptors()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

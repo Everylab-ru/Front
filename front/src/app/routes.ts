@@ -5,6 +5,7 @@ export const routes = {
   register: '/register',
   add: '/add',
   profile: '/profile',
+  addNewProduct: '/addNewProduct',
   notFound: '*',
 }
 

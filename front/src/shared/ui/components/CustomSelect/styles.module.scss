@@ -1,9 +1,16 @@
-.input {
-  margin-bottom: 10px;
-}
-.content {
-  width: 100%;
-}
-.noData {
-  width: 100%;
+
+.customSelect {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .content {
+    width: 100%;
+  }
+
+
+  .error {
+    top: 40px;
+    position: absolute;
+  }
 }

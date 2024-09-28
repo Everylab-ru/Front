@@ -8,4 +8,15 @@ export class Api {
     withCredentials: true,
   })
   public static accessToken?: string = undefined
+
+  public static setupInterceptors() {
+    Api.axios.interceptors.request.use((config) => {
+      if (Api.accessToken) {
+        console.log(Api.accessToken)
+        config.headers.Authorization = `Bearer ${Api.accessToken}`
+      }
+
+      return config
+    })
+  }
 }

@@ -8,12 +8,13 @@ import {
 } from '@/entities/store/slices/user-slice/types.ts'
 import { createAppAsyncThunk } from '@/utils/createAppAsyncThunk.ts'
 import { Auth } from '@/entities/api/auth.ts'
+import { User } from '@/entities/api/user.ts'
 
 const initialState: UserSliceType = {
   isLoggedIn: true,
   user: {
-    email: 'antonsadovskiy6@gmail.com',
-    username: 'antonsadovskiy',
+    email: '',
+    username: '',
   },
 }
 
@@ -73,10 +74,9 @@ const meUser = createAppAsyncThunk<MeResponseType, void>(
   'user/me',
   async (_, { rejectWithValue }) => {
     try {
-      return await Auth.me()
+      return await User.me()
     } catch (e) {
-      console.error(e)
-      return rejectWithValue(null)
+      return rejectWithValue(e)
     }
   },
 )
@@ -87,8 +87,7 @@ const refreshUser = createAppAsyncThunk<void, void>(
     try {
       await Auth.refresh()
     } catch (e) {
-      console.error(e)
-      return rejectWithValue(null)
+      return rejectWithValue(e)
     }
   },
 )
