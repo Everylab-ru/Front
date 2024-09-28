@@ -11,7 +11,7 @@ import { Auth } from '@/entities/api/auth.ts'
 import { User } from '@/entities/api/user.ts'
 
 const initialState: UserSliceType = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   user: {
     email: '',
     username: '',
