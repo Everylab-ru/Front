@@ -1,10 +1,11 @@
 import { Button, IconButton, Link, Text } from '@radix-ui/themes'
 import { useNavigate } from 'react-router-dom'
-import { ChangeEvent, SyntheticEvent, useState } from 'react'
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
 
 import styles from './styles.module.scss'
 
 import logo from '@/assets/images/logo.png'
+import smallLogo from '@/assets/images/small-size-logo.png'
 import { useAppSelector } from '@/app/hooks.ts'
 import { selectorIsLoggedIn } from '@/entities/store/slices/user-slice'
 import { routes } from '@/app/routes.ts'
@@ -20,6 +21,16 @@ export const Header = () => {
   const isLoggedIn = useAppSelector(selectorIsLoggedIn)
 
   const [searchValue, setSearchValue] = useState('')
+
+  const [imageSrc, setImageSrc] = useState<string>(smallLogo)
+
+  useEffect(() => {
+    const img = new Image()
+    img.src = logo
+    img.onload = () => {
+      setImageSrc(logo)
+    }
+  }, [])
 
   const onLinkClick = (event: SyntheticEvent) => {
     event.preventDefault()
@@ -40,7 +51,7 @@ export const Header = () => {
           <img
             onClick={onLogoClick}
             className={styles.logo}
-            src={logo}
+            src={imageSrc}
             alt="logo"
           />
           <Text size={'5'} color={'green'}>

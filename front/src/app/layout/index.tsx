@@ -15,8 +15,6 @@ export const Layout = () => {
 
   const isAppInitialized = useAppSelector(selectorIsAppInitialized)
 
-  console.log(isAppInitialized)
-
   const isHideHeader = useMemo(() => {
     return routesWithoutHeader.includes(location.pathname)
   }, [location])
