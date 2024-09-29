@@ -1,6 +1,7 @@
 import { Button } from '@radix-ui/themes'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import styles from './styles.module.scss'
 
@@ -28,7 +29,7 @@ export const ProfilePage = () => {
     try {
       setIsLoading(true)
       await dispatch(userThunks.logoutUser()).unwrap()
-
+      toast.success('Вы вышли из аккаунта')
       navigate(routes.main)
     } catch (e) {
       console.error(e)

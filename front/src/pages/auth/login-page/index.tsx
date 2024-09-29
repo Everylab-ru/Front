@@ -1,6 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 import { loginSchema, LoginType } from './schema.ts'
 
@@ -32,9 +33,13 @@ export const LoginPage = () => {
         })
       navigate(routes.main)
 
+      toast.success('Вы успешно вошли в аккаунт')
+
       methods.reset()
     } catch (e) {
       console.error(e)
+
+      toast.error('Что-то пошло не так')
     }
   }
 

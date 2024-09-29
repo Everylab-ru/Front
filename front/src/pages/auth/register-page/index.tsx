@@ -1,6 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 import { routes } from '@/app/routes.ts'
 import { AuthForm } from '@/pages/auth'
@@ -43,12 +44,16 @@ export const RegisterPage = () => {
             dispatch(userThunks.meUser()).unwrap()
           })
 
+        toast.success('Вы успешно зарегистрировались')
+
         navigate(routes.main)
 
         methods.reset()
       }
     } catch (e) {
       console.error(e)
+
+      toast.error('Что-то пошло не так')
     }
   }
 

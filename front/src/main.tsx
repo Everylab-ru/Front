@@ -6,6 +6,7 @@ import { Theme } from '@radix-ui/themes'
 import { RouterProvider } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 import { StrictMode } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 import { store } from '@/entities/store/store.ts'
 import { router } from '@/app/router/router.tsx'
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <Theme accentColor="grass" grayColor="sage">
         <AppWrapper>
+          <Toaster />
           <RouterProvider router={router} />
         </AppWrapper>
       </Theme>

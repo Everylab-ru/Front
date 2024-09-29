@@ -44,18 +44,12 @@ export class Auth {
   }
 
   public static async logout() {
-    /*    const response = await Api.axios.post('auth/logout')
+    const response = await Api.axios.post('auth/logout')
 
     if (response.data) {
       Api.accessToken = undefined
-    }*/
+    }
 
-    const promise = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({})
-      }, 3000)
-    })
-
-    return await promise
+    return response.data
   }
 }
