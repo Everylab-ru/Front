@@ -6,9 +6,15 @@ import styles from './styles.module.scss'
 
 import { Header } from '@/app/layout/header'
 import { routesWithoutHeader } from '@/app/routes.ts'
+import { useAppSelector } from '@/app/hooks.ts'
+import { selectorIsAppInitialized } from '@/entities/store/slices/app-slice'
 
 export const Layout = () => {
   const location = useLocation()
+
+  const isAppInitialized = useAppSelector(selectorIsAppInitialized)
+
+  console.log(isAppInitialized)
 
   const isHideHeader = useMemo(() => {
     return routesWithoutHeader.includes(location.pathname)
@@ -20,11 +26,12 @@ export const Layout = () => {
   })
 
   return (
-    <div>
+    <>
       {!isHideHeader && <Header />}
       <div className={contentStyles}>
-        <Outlet />
+        {isAppInitialized && <Outlet />}
+        {!isAppInitialized && <div>loading</div>}
       </div>
-    </div>
+    </>
   )
 }

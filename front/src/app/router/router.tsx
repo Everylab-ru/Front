@@ -13,6 +13,7 @@ import { MainPage } from '@/pages/main-page'
 import { NotFoundPage } from '@/pages/not-found-page'
 import { ProfilePage } from '@/pages/profile-page'
 import { AddNewWorkPage } from '@/pages/add-new-work-page'
+import { PrivateRoutes } from '@/app/router/private-routes'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,8 +25,11 @@ export const router = createBrowserRouter(
       <Route path={routes.register} element={<RegisterPage />} />
 
       <Route path={routes.main} element={<MainPage />} />
-      <Route path={routes.profile} element={<ProfilePage />} />
-      <Route path={routes.addNewProduct} element={<AddNewWorkPage />} />
+
+      <Route element={<PrivateRoutes />}>
+        <Route path={routes.profile} element={<ProfilePage />} />
+        <Route path={routes.addNewProduct} element={<AddNewWorkPage />} />
+      </Route>
     </Route>,
   ),
 )

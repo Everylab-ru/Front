@@ -5,6 +5,16 @@ import styles from '@/pages/add-new-work-page/styles.module.scss'
 import { CustomInput } from '@/shared/ui/components/CustomInput'
 import { CustomTextArea } from '@/shared/ui/components/CustomTextArea'
 import { WorkType } from '@/pages/add-new-work-page/schema.ts'
+import {
+  descriptionExamples,
+  titleExamples,
+} from '@/pages/add-new-work-page/constants'
+
+const randomDescriptionExample =
+  descriptionExamples[Math.floor(Math.random() * descriptionExamples.length)]
+
+const randomTitleExample =
+  titleExamples[Math.floor(Math.random() * titleExamples.length)]
 
 export const WorkInputs = () => {
   const {
@@ -23,7 +33,7 @@ export const WorkInputs = () => {
           render={({ field }) => (
             <CustomInput
               error={errors.title?.message ?? ''}
-              placeholder={'Введите название...'}
+              placeholder={`Введите название, например: ${randomTitleExample}`}
               {...field}
             />
           )}
@@ -38,7 +48,7 @@ export const WorkInputs = () => {
           render={({ field }) => (
             <CustomTextArea
               rows={10}
-              placeholder={'Введите описание...'}
+              placeholder={`Введите описание, например: ${randomDescriptionExample}`}
               error={errors.description?.message ?? ''}
               {...field}
             />
