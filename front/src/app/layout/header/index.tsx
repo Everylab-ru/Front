@@ -47,13 +47,8 @@ export const Header = () => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.headerContentTop}>
-        <div className={styles.logoContainer}>
-          <img
-            onClick={onLogoClick}
-            className={styles.logo}
-            src={imageSrc}
-            alt="logo"
-          />
+        <div onClick={onLogoClick} className={styles.logoContainer}>
+          <img className={styles.logo} src={imageSrc} alt="logo" />
           <Text size={'5'} color={'green'}>
             Купи за деньги время!
           </Text>

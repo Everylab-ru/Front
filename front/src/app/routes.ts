@@ -3,7 +3,6 @@ export const routes = {
   main: '/main',
   login: '/login',
   register: '/register',
-  add: '/add',
   profile: '/profile',
   addNewProduct: '/addNewProduct',
   notFound: '*',

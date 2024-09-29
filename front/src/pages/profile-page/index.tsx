@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 
 import styles from './styles.module.scss'
 
+import StudentIcon from '@/assets/3d-icons/student.png'
 import {
   selectorIsLoggedIn,
   selectorUser,
@@ -44,6 +45,9 @@ export const ProfilePage = () => {
   return (
     <div className={styles.page}>
       <div className={styles.userInfoAndStats}>
+        <div className={styles.studentIcon}>
+          <img src={StudentIcon} alt={'student'} />
+        </div>
         <UserInfo user={user} />
         <Stats />
       </div>
