@@ -3,10 +3,53 @@
   height: calc(100vh - 223px);
   padding: 40px 0;
 }
+
 .withAuthPages {
   padding: 0
 }
 
 .maxWidth {
   max-width: 1280px;
+}
+
+.initializing {
+  margin: 0 auto;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    background: #46a758;
+    border-radius: 50%;
+    position: relative;
+    animation: roll 1s ease-in-out infinite alternate;
+  }
+  .loader:after{
+    content:"";
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    border: 5px solid ;
+    border-color: white transparent;
+  }
+}
+
+@keyframes roll {
+  0% {
+    transform: translateX(-150%) rotate(0deg) ;
+  }
+  100% {
+    transform:  translateX(150%) rotate(360deg);
+  }
 }

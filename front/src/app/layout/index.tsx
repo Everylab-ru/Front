@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { useMemo } from 'react'
 import clsx from 'clsx'
+import { Text } from '@radix-ui/themes'
 
 import styles from './styles.module.scss'
 
@@ -27,11 +28,29 @@ export const Layout = () => {
 
   return (
     <>
-      {!isHideHeader && <Header />}
-      <div className={contentStyles}>
-        {isAppInitialized && <Outlet />}
-        {!isAppInitialized && <div>loading</div>}
-      </div>
+      {!isAppInitialized && (
+        <div className={styles.initializing}>
+          <Spinner />
+        </div>
+      )}
+      {isAppInitialized && (
+        <>
+          {!isHideHeader && <Header />}
+          <div className={contentStyles}>
+            {isAppInitialized && <Outlet />}
+            {!isAppInitialized && <div>loading</div>}
+          </div>
+        </>
+      )}
     </>
+  )
+}
+
+const Spinner = () => {
+  return (
+    <div className={styles.loaderContainer}>
+      <div className={styles.loader}></div>
+      <Text size={'3'}>Загружаем работы</Text>
+    </div>
   )
 }

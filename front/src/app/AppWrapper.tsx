@@ -18,10 +18,10 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
         await dispatch(userThunks.refreshUser()).unwrap()
 
         await dispatch(userThunks.meUser()).unwrap()
-
-        dispatch(appActions.setIsAppInitialized(true))
       } catch (e: any) {
         console.log('user not authorized: ', e)
+      } finally {
+        dispatch(appActions.setIsAppInitialized(true))
       }
     }
 
