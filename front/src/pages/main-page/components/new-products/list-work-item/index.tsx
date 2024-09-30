@@ -9,6 +9,8 @@ import {
 } from '@/pages/main-page/constants/mock-works.ts'
 import LabWorkIcon from '@/assets/3d-icons/lab-work.png'
 import OutlineIcon from '@/assets/3d-icons/outline.png'
+import DiplomaIcon from '@/assets/3d-icons/diploma.png'
+import CourseWorkIcon from '@/assets/3d-icons/course-work.png'
 import { StarRating } from '@/shared/ui/components/StarRating'
 
 type ListWorkItemPropsType = {
@@ -21,6 +23,10 @@ const getWorkPicture = (workType: WorkVariantType) => {
       return LabWorkIcon
     case 'outline':
       return OutlineIcon
+    case 'diplomaProject':
+      return DiplomaIcon
+    case 'courseProject':
+      return CourseWorkIcon
     default:
       return LabWorkIcon
   }

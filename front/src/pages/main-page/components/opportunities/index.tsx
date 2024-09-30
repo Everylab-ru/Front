@@ -1,6 +1,6 @@
-import { Text } from '@radix-ui/themes'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import { Text } from '@radix-ui/themes'
 
 import styles from './styles.module.scss'
 

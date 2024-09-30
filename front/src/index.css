@@ -4,6 +4,7 @@ body {
     display: flex;
     box-sizing: border-box;
     overflow-x: hidden;
+    font-family: 'Nunito', sans-serif;
 }
 .radix-themes {
     --cursor-button: pointer;
