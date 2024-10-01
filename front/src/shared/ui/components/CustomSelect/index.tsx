@@ -24,6 +24,8 @@ export const CustomSelect = ({
   placeholder,
   isDisabled = false,
 }: CustomSelectPropsType) => {
+  console.log(value)
+
   return (
     <div className={styles.customSelect}>
       <Select.Root

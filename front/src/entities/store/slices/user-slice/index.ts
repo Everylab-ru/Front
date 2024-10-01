@@ -9,6 +9,8 @@ import {
 import { createAppAsyncThunk } from '@/utils/createAppAsyncThunk.ts'
 import { Auth } from '@/entities/api/auth.ts'
 import { User } from '@/entities/api/user.ts'
+import { Products } from '@/entities/api/products.ts'
+import { AddProductRequestType } from '@/types/products-api'
 
 const initialState: UserSliceType = {
   isLoggedIn: false,
@@ -104,6 +106,17 @@ const logoutUser = createAppAsyncThunk<void, void>(
     }
   },
 )
+const addProduct = createAppAsyncThunk<void, AddProductRequestType>(
+  'user/addProduct',
+  async (args, { rejectWithValue }) => {
+    try {
+      await Products.addProduct({ ...args })
+    } catch (e) {
+      console.error(e)
+      return rejectWithValue(null)
+    }
+  },
+)
 
 export const userActions = userSlice.actions
 export const { selectorIsLoggedIn, selectorUser } = userSlice.selectors
@@ -113,6 +126,7 @@ export const userThunks = {
   meUser,
   refreshUser,
   logoutUser,
+  addProduct,
 }
 
 export const userReducer = userSlice.reducer

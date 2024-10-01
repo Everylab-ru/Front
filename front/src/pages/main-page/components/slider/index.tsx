@@ -1,6 +1,6 @@
 import styles from './styles.module.scss'
 
-import Banner from '@/assets/images/banner1.jpg'
+import Banner from '@/assets/images/banner1.png'
 
 export const Slider = () => {
   return (

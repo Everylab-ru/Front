@@ -1,21 +1,11 @@
 import { Controller, useFormContext } from 'react-hook-form'
+import { useMemo } from 'react'
 
 import styles from '@/pages/add-new-work-page/styles.module.scss'
 import { WorkType } from '@/pages/add-new-work-page/schema.ts'
 import { CustomSelect, OptionType } from '@/shared/ui/components/CustomSelect'
-
-const selectOptions: OptionType[] = [
-  {
-    label: 'Лабораторная работа',
-    value: 'labWork',
-  },
-  { label: 'Курсовой проект', value: 'courseProject' },
-  { label: 'Дипломный проект', value: 'diplomaProject' },
-  {
-    label: 'Конспект',
-    value: 'outline',
-  },
-]
+import { useAppSelector } from '@/app/hooks.ts'
+import { selectorProductTypes } from '@/entities/store/slices/settings-slice'
 
 const mockUniData: OptionType[] = [
   {
@@ -44,12 +34,22 @@ const mockFacData: OptionType[] = [
   },
   { label: 'Автотракторный факультет (АТФ)', value: 'atf' },
 ]
+// TODO: fix reset fiels
 
 export const WorkSelects = () => {
   const {
     control,
     formState: { errors },
   } = useFormContext<WorkType>()
+
+  const productTypes = useAppSelector(selectorProductTypes)
+
+  const formattedProductTypes = useMemo(() => {
+    return productTypes.map((type) => ({
+      label: type.name,
+      value: type.id.toString(),
+    }))
+  }, [productTypes])
 
   return (
     <div className={styles.selects}>
@@ -60,7 +60,8 @@ export const WorkSelects = () => {
         render={({ field }) => {
           return (
             <CustomSelect
-              options={selectOptions}
+              isDisabled={productTypes.length === 0}
+              options={formattedProductTypes}
               placeholder={'Тип работы'}
               changeOption={field.onChange}
               error={errors.workType?.message ?? ''}
@@ -89,15 +90,18 @@ export const WorkSelects = () => {
         name={'faculty'}
         control={control}
         rules={{ required: true }}
-        render={({ field }) => (
-          <CustomSelect
-            options={mockFacData}
-            placeholder={'Факультет'}
-            changeOption={field.onChange}
-            error={errors.faculty?.message ?? ''}
-            {...field}
-          />
-        )}
+        render={({ field }) => {
+          console.log(field)
+          return (
+            <CustomSelect
+              options={mockFacData}
+              placeholder={'Факультет'}
+              changeOption={field.onChange}
+              error={errors.faculty?.message ?? ''}
+              {...field}
+            />
+          )
+        }}
       />
     </div>
   )
